@@ -1,14 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
-  const posts = [
-    {
-      slug: 'building-my-portfolio',
-      title: 'I Built and Launched My Portfolio Site in a Day',
-      date: 'June 11, 2026',
-      description: 'How I went from zero to a live SvelteKit site at christiandali.dev in one session.'
-    }
-  ];
+  let { data } = $props();
+  const posts = data.posts;
 </script>
 
 <main>
@@ -21,7 +13,7 @@
   <section class="posts">
     {#each posts as post}
       <a href="/blog/{post.slug}" class="post-card">
-        <p class="post-date">{post.date}</p>
+        <p class="post-date">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         <h2>{post.title}</h2>
         <p class="post-description">{post.description}</p>
         <span class="read-more">Read more →</span>

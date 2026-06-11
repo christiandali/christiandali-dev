@@ -1,6 +1,6 @@
 <script>
   const name = "Christian Dali"
-  const tagline = "I build tools that solve real problems — for farms, schools, and everything in between."
+  const tagline = "Your friendly neighborhood programmer who is motivated to build tools that solve real problems — for farms, schools, and everything in between."
 </script>
 
 <main>

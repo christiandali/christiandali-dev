@@ -90,7 +90,7 @@
       <p>A unified support dashboard built for ISP technicians, consolidating data from multiple technology portals into a single view — surfacing only the most critical information needed during live customer calls, without requiring deep technical background.</p>
       <p class="label">Capstone Project · CSUMB · 2023</p>
     <div class="project-links">
-    <a href="https://www.youtube.com/watch?v=8USs1nkyP14" target="_blank">Watch Demo</a>
+    <a>Watch Demo (currently unavailable)</a>
     <a href="https://dalitechnologies.weebly.com/cst-489499---capstone.html" target="_blank">View Capstone</a>
     </div>
     </div>

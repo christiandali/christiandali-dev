@@ -6,7 +6,7 @@
   <section class="blog-hero">
     <p class="label">Writing</p>
     <h1>Thoughts & Dev Journal</h1>
-    <p class="tagline">Notes on building, learning, and working in the Central Valley tech scene.</p>
+    <p class="tagline">Notes on building, learning, and working in the Central Valley Tech World!</p>
   </section>
 
   <section class="posts">

@@ -23,86 +23,87 @@
 
 <style>
   main {
-    font-family: 'Georgia', serif;
-    max-width: 720px;
+    font-family: 'Inter', sans-serif;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 2.5rem;
   }
 
   .blog-hero {
     padding: 4rem 0 3rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 0.5px solid #d4c9a8;
     margin-bottom: 3rem;
   }
 
   .label {
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: #888;
-    font-family: 'Arial', sans-serif;
+    color: #c17f3a;
+    font-weight: 500;
     margin-bottom: 1rem;
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #1c1a15;
     margin-bottom: 1rem;
   }
 
   .tagline {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.6;
-    font-family: 'Arial', sans-serif;
+    font-size: 15px;
+    color: #5a5340;
+    line-height: 1.7;
+    font-weight: 300;
   }
 
   .posts {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0;
   }
 
   .post-card {
     display: block;
-    padding: 1.75rem;
-    border: 1px solid #eee;
-    border-radius: 8px;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid #d4c9a8;
     text-decoration: none;
-    transition: border-color 0.2s;
   }
 
-  .post-card:hover {
-    border-color: #2d6a4f;
+  .post-card:hover .post-title {
+    color: #c17f3a;
   }
 
   .post-date {
-    font-size: 0.8rem;
-    color: #aaa;
-    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #b0a07a;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
   }
 
-  h2 {
-    font-size: 1.3rem;
-    color: #1a1a1a;
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #1c1a15;
     margin-bottom: 0.5rem;
+    transition: color 0.2s;
   }
 
   .post-description {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.6;
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    color: #6b6147;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
   }
 
   .read-more {
-    font-size: 0.85rem;
-    color: #2d6a4f;
-    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: #2d5a3d;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 </style>

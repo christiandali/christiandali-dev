@@ -16,70 +16,69 @@
 
 <style>
   main {
-    font-family: 'Georgia', serif;
+    font-family: 'Inter', sans-serif;
     max-width: 680px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem 2.5rem 5rem;
   }
 
   .back {
     display: inline-block;
     margin: 2rem 0;
-    font-size: 0.9rem;
-    color: #2d6a4f;
-    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #2d5a3d;
     text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .back:hover {
     text-decoration: underline;
   }
 
-  article {
-    padding-bottom: 4rem;
-  }
-
   .date {
-    font-size: 0.8rem;
-    color: #aaa;
-    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    color: #b0a07a;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     margin-bottom: 0.75rem;
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
     font-weight: 700;
-    color: #1a1a1a;
+    color: #1c1a15;
     line-height: 1.2;
     margin-bottom: 2.5rem;
   }
 
   .content :global(h2) {
-    font-size: 1.3rem;
-    color: #1a1a1a;
-    margin: 2rem 0 0.75rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #1c1a15;
+    margin: 2.5rem 0 0.75rem;
   }
 
   .content :global(p) {
-    font-size: 1.05rem;
+    font-size: 16px;
     line-height: 1.8;
-    color: #333;
-    margin-bottom: 1.25rem;
-    font-family: 'Georgia', serif;
+    color: #3d3828;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
   }
 
   .content :global(a) {
-    color: #2d6a4f;
+    color: #2d5a3d;
     text-decoration: underline;
   }
 
   .content :global(code) {
-    background: #f4f4f4;
+    background: #f0ead8;
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-size: 0.9rem;
     font-family: monospace;
+    color: #1c1a15;
   }
 </style>

@@ -1,6 +1,5 @@
 <script lang="ts">
   let { data } = $props();
-  const posts = data.posts;
 </script>
 
 <main>
@@ -11,7 +10,7 @@
   </section>
 
   <section class="posts">
-    {#each posts as post}
+    {#each data.posts as post}
       <a href="/blog/{post.slug}" class="post-card">
         <p class="post-date">{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         <h2>{post.title}</h2>

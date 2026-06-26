@@ -723,7 +723,26 @@
     }
 
     .hero-map {
-      display: none;
+      left: 0;
+      width: 100%;
+    }
+
+    .valley-map {
+      object-position: 55% 35%;
+      -webkit-mask-image: radial-gradient(
+        ellipse 115% 85% at 62% 42%,
+        rgba(0,0,0,0.42) 0%,
+        rgba(0,0,0,0.35) 35%,
+        rgba(0,0,0,0.12) 60%,
+        transparent 78%
+      );
+      mask-image: radial-gradient(
+        ellipse 115% 85% at 62% 42%,
+        rgba(0,0,0,0.42) 0%,
+        rgba(0,0,0,0.35) 35%,
+        rgba(0,0,0,0.12) 60%,
+        transparent 78%
+      );
     }
   }
 

@@ -712,37 +712,44 @@
   /* Mobile */
   @media (max-width: 860px) {
     .hero {
-      display: block;
-      padding: 3rem 1.25rem 2.5rem;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 0;
       min-height: unset;
     }
 
     .hero-content {
       width: 100%;
-      padding-right: 0;
+      padding: 2rem 1.25rem 2.5rem;
     }
 
     .hero-map {
-      left: 0;
+      position: relative;
+      inset: auto;
       width: 100%;
+      height: 32vw;
+      max-height: 160px;
+      order: -1;
     }
 
     .valley-map {
-      object-position: 55% 35%;
-      opacity: 0.35;
-      -webkit-mask-image: radial-gradient(
-        ellipse 115% 85% at 62% 42%,
+      opacity: 1;
+      object-position: 45% 38%;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
         black 0%,
-        rgba(0,0,0,0.7) 40%,
-        rgba(0,0,0,0.2) 65%,
-        transparent 82%
+        black 42%,
+        rgba(0,0,0,0.55) 68%,
+        rgba(0,0,0,0.08) 88%,
+        transparent 100%
       );
-      mask-image: radial-gradient(
-        ellipse 115% 85% at 62% 42%,
+      mask-image: linear-gradient(
+        to bottom,
         black 0%,
-        rgba(0,0,0,0.7) 40%,
-        rgba(0,0,0,0.2) 65%,
-        transparent 82%
+        black 42%,
+        rgba(0,0,0,0.55) 68%,
+        rgba(0,0,0,0.08) 88%,
+        transparent 100%
       );
     }
   }

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition';
+
   const projects = [
     {
       name: 'Canopy',
@@ -28,25 +30,51 @@
   ];
 
   const roots = [
-    { icon: 'ti-plant', label: 'Agriculture' },
-    { icon: 'ti-droplet', label: 'Oil & Energy' },
-    { icon: 'ti-music', label: 'Bakersfield Sound' },
-    { icon: 'ti-school', label: 'Education' },
-    { icon: 'ti-wave-sine', label: 'Kern River' },
-    { icon: 'ti-heart', label: 'Community' },
-    { icon: 'ti-cloud', label: 'Tule Fog' },
-    { icon: 'ti-car', label: 'Lowrider Culture' },
-    { icon: 'ti-wind', label: 'Wind Country' },
-    { icon: 'ti-building', label: 'Downtown Culture' },
-    { icon: 'ti-sun', label: '100° Summers' },
-    { icon: 'ti-trophy', label: 'Friday Night Lights' },
-    { icon: 'ti-leaf', label: 'Pistachios & Almonds' },
-    { icon: 'ti-horse', label: 'Stagecoach Roots' },
-    { icon: 'ti-bowl', label: 'Basque Heritage' },
+    { emoji: '🎓', label: 'Education', bullets: ['Attendance tracking', 'Grade reporting', 'Parent communication', 'Curriculum planning', 'Resource sharing'] },
+    { emoji: '🎶', label: 'Music', bullets: ['Venue booking', 'Practice scheduling', 'Fan engagement', 'Lesson booking', 'Merch management'] },
+    { emoji: '📚', label: 'Libraries', bullets: ['Digital catalog', 'Event scheduling', 'Borrowing tracking', 'Community programs', 'Resource discovery'] },
+    { emoji: '🚚', label: 'Food Trucks', bullets: ['Live location tracking', 'Order ahead', 'Schedule management', 'Customer loyalty', 'Menu updates'] },
+    { emoji: '☕', label: 'Coffee Shops', bullets: ['Loyalty programs', 'Order ahead', 'Inventory tracking', 'Staff scheduling', 'Local discovery'] },
+    { emoji: '🏥', label: 'Healthcare', bullets: ['Appointment booking', 'Patient navigation', 'Insurance coordination', 'Telehealth tools', 'Referral tracking'] },
+    { emoji: '🏫', label: 'Schools', bullets: ['Communication tools', 'Scheduling', 'Student support', 'Parent engagement', 'Resource allocation'] },
+    { emoji: '🎭', label: 'Arts', bullets: ['Ticketing', 'Artist discovery', 'Grant tracking', 'Venue booking', 'Community outreach'] },
+    { emoji: '⚾', label: 'Youth Sports', bullets: ['League scheduling', 'Team registration', 'Score tracking', 'Volunteer coordination', 'Parent communication'] },
+    { emoji: '🚴', label: 'Outdoor Recreation', bullets: ['Trail mapping', 'Gear rentals', 'Group coordination', 'Event planning', 'Safety alerts'] },
+    { emoji: '🐕', label: 'Animal Welfare', bullets: ['Adoption matching', 'Foster coordination', 'Donation tracking', 'Volunteer scheduling', 'Medical records'] },
+    { emoji: '🌳', label: 'Parks', bullets: ['Facility booking', 'Maintenance scheduling', 'Usage analytics', 'Event coordination', 'Volunteer management'] },
+    { emoji: '📖', label: 'Local Authors', bullets: ['Publishing tools', 'Event booking', 'Reader engagement', 'Distribution', 'Community building'] },
+    { emoji: '🎪', label: 'Community Events', bullets: ['Registration', 'Volunteer coordination', 'Ticketing', 'Promotion', 'Vendor management'] },
+    { emoji: '🏛️', label: 'Local Government', bullets: ['Permitting', 'Public records', 'Citizen requests', 'Meeting scheduling', 'Service tracking'] },
+    { emoji: '🚒', label: 'Public Safety', bullets: ['Dispatch coordination', 'Training records', 'Incident reporting', 'Community alerts', 'Equipment tracking'] },
+    { emoji: '🍊', label: 'Farmers Markets', bullets: ['Vendor management', 'Online pre-orders', 'Loyalty programs', 'Location & hours', 'Inventory'] },
+    { emoji: '🚂', label: 'Transportation', bullets: ['Route planning', 'Real-time tracking', 'Accessibility info', 'Multi-modal routing', 'Schedule updates'] },
+    { emoji: '🏡', label: 'Neighborhoods', bullets: ['Community boards', 'Resource sharing', 'Safety reporting', 'Local services', 'Event coordination'] },
+    { emoji: '🎮', label: 'Gaming', bullets: ['Tournament management', 'Local event booking', 'Community building', 'Venue discovery', 'Streaming tools'] },
+    { emoji: '🎬', label: 'Film', bullets: ['Location scouting', 'Crew coordination', 'Production management', 'Permit tracking', 'Distribution'] },
+    { emoji: '🎤', label: 'Performing Arts', bullets: ['Ticketing', 'Rehearsal scheduling', 'Venue management', 'Talent booking', 'Audience engagement'] },
+    { emoji: '💼', label: 'Small Business', bullets: ['Inventory management', 'Customer tracking', 'Appointment booking', 'Marketing tools', 'Financial reporting'] },
+    { emoji: '🏗️', label: 'Construction', bullets: ['Project management', 'Permit tracking', 'Subcontractor coordination', 'Safety compliance', 'Material tracking'] },
+    { emoji: '🔋', label: 'Renewable Energy', bullets: ['Production monitoring', 'Maintenance scheduling', 'Grid integration', 'ROI tracking', 'Permitting'] },
+    { emoji: '✈️', label: 'Aviation', bullets: ['Maintenance tracking', 'Flight scheduling', 'Training records', 'Safety reporting', 'Parts inventory'] },
+    { emoji: '📦', label: 'Logistics', bullets: ['Route optimization', 'Inventory tracking', 'Delivery management', 'Customer communication', 'Analytics'] },
+    { emoji: '🌎', label: 'Nonprofits', bullets: ['Donor management', 'Volunteer coordination', 'Grant tracking', 'Impact reporting', 'Community outreach'] },
+    { emoji: '🧑‍🍳', label: 'Restaurants', bullets: ['Reservation management', 'Menu tools', 'Inventory tracking', 'Staff scheduling', 'Customer loyalty'] },
+    { emoji: '🌱', label: 'Sustainability', bullets: ['Impact tracking', 'Resource monitoring', 'Community engagement', 'Certification management', 'Reporting'] },
+    { emoji: '📷', label: 'Tourism', bullets: ['Visitor guides', 'Local discovery', 'Experience curation', 'Booking integration', 'Review management'] },
+    { emoji: '🏕️', label: 'Camping', bullets: ['Reservation systems', 'Trail info', 'Safety alerts', 'Equipment rentals', 'Group coordination'] },
+    { emoji: '📚', label: 'Literacy', bullets: ['Reading tracking', 'Tutor matching', 'Resource sharing', 'Progress monitoring', 'Community programs'] },
+    { emoji: '💡', label: 'Startups', bullets: ['Mentor matching', 'Resource discovery', 'Co-founder matching', 'Investor connections', 'Community building'] },
+    { emoji: '🧠', label: 'Mental Health', bullets: ['Provider matching', 'Appointment booking', 'Resource discovery', 'Crisis support', 'Community connection'] },
+    { emoji: '🤝', label: 'Community Organizations', bullets: ['Member management', 'Event coordination', 'Volunteer tracking', 'Communication tools', 'Impact reporting'] },
   ];
+
+  let activeItem: (typeof roots)[number] | null = $state(null);
+
+  function handleItemClick(root: (typeof roots)[number]) {
+    activeItem = activeItem?.label === root.label ? null : root;
+  }
 </script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
 <main>
 
@@ -54,13 +82,13 @@
   <section class="hero">
     <div class="hero-eyebrow">
       <div class="hero-dot"></div>
-      <span class="hero-label">Full-stack developer · Bakersfield, CA</span>
+      <span class="hero-label">Full-stack developer · Community Builder</span>
     </div>
-    <h1>Hey, I'm Chris.</h1>
+    <h1>Hey, I'm Chris :)</h1>
     <div class="hero-rule"></div>
-    <p class="hero-body">I'm a developer born and raised right here in the Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
-    <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands. Together, we might build something our friends and neighbors never could have imagined alone.</p>
-    <p class="hero-body">Whether you know exactly what you need or have no idea where to start — that's okay. Let's just talk.</p>
+    <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
+    <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
+    <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
     <div class="hero-actions">
       <a href="#work" class="btn-primary">See my work</a>
       <a href="#contact" class="btn-secondary">Get in touch</a>
@@ -68,14 +96,39 @@
   </section>
 
   <!-- Roots marquee -->
-  <div class="roots-marquee" aria-label="What makes the Valley the Valley">
-    <div class="marquee-track">
-      {#each [...roots, ...roots, ...roots] as root}
-        <div class="roots-item">
-          <i class="ti {root.icon}" aria-hidden="true"></i>
-          <span>{root.label}</span>
+  <div class="roots-outer" role="region" aria-label="Explore what software could improve" onmouseleave={() => activeItem = null}>
+    {#if activeItem}
+      <div class="expand-card" transition:fly={{ y: 6, duration: 150 }}>
+        <div class="expand-title">
+          <span class="expand-emoji">{activeItem.emoji}</span>
+          <span class="expand-name">{activeItem.label}</span>
         </div>
-      {/each}
+        <div class="expand-divider">↓</div>
+        <div class="expand-question">What could software improve?</div>
+        <ul class="expand-list">
+          {#each activeItem.bullets as bullet}
+            <li>{bullet}</li>
+          {/each}
+        </ul>
+      </div>
+    {/if}
+    <div class="roots-marquee" aria-label="Explore what software could improve">
+      <div
+        class="marquee-track"
+        style:animation-play-state={activeItem ? 'paused' : 'running'}
+      >
+        {#each [...roots, ...roots, ...roots] as root}
+          <button
+            class="roots-item"
+            onmouseenter={() => activeItem = root}
+            onclick={() => handleItemClick(root)}
+            aria-pressed={activeItem?.label === root.label}
+          >
+            <span class="roots-emoji" aria-hidden="true">{root.emoji}</span>
+            <span>{root.label}</span>
+          </button>
+        {/each}
+      </div>
     </div>
   </div>
 
@@ -267,6 +320,84 @@
   }
 
   /* Roots marquee */
+  .roots-outer {
+    position: relative;
+  }
+
+  .expand-card {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    background: #faf8f3;
+    border: 0.5px solid #d4c9a8;
+    border-left: 3px solid #c17f3a;
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    min-width: 210px;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+  }
+
+  .expand-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .expand-emoji {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .expand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #1c1a15;
+  }
+
+  .expand-divider {
+    font-size: 13px;
+    color: #c17f3a;
+    margin-bottom: 0.4rem;
+  }
+
+  .expand-question {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c17f3a;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .expand-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .expand-list li {
+    font-size: 12px;
+    color: #5a5340;
+    line-height: 1.4;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .expand-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #8fbc8f;
+  }
+
   .roots-marquee {
     background: #2d5a3d;
     padding: 1.1rem 0;
@@ -300,11 +431,7 @@
     align-items: center;
     gap: 0;
     width: max-content;
-    animation: marquee 55s linear infinite;
-  }
-
-  .roots-marquee:hover .marquee-track {
-    animation-play-state: paused;
+    animation: marquee 110s linear infinite;
   }
 
   @keyframes marquee {
@@ -317,9 +444,17 @@
     align-items: center;
     gap: 0.5rem;
     color: #c8dcc8;
-    padding: 0 2rem;
+    padding: 0 1.75rem;
     position: relative;
     white-space: nowrap;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .roots-item:hover {
+    color: #e8f5e8;
   }
 
   .roots-item::after {
@@ -331,13 +466,13 @@
     line-height: 1;
   }
 
-  .roots-item i {
-    font-size: 14px;
-    color: #8fbc8f;
+  .roots-emoji {
+    font-size: 15px;
+    line-height: 1;
     flex-shrink: 0;
   }
 
-  .roots-item span {
+  .roots-item span:not(.roots-emoji) {
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -545,6 +680,13 @@
 
     .roots-marquee {
       padding: 1rem 0;
+    }
+
+    .expand-card {
+      left: 1rem;
+      right: 1rem;
+      transform: none;
+      min-width: unset;
     }
   }
 </style>

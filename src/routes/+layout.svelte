@@ -1,16 +1,35 @@
 <script lang="ts">
   import '../app.css';
+  import { fly } from 'svelte/transition';
   let { children } = $props();
+  let menuOpen = $state(false);
 </script>
 
 <nav>
-  <div class="nav-logo"><a href="/">Christian Dali</a></div>
-  <div class="nav-links">
-    <a href="/#work">Work</a>
-    <a href="/#education">Education</a>
-    <a href="/blog">Writing</a>
-    <a href="/#contact">Contact</a>
+  <div class="nav-inner">
+    <div class="nav-logo"><a href="/">Christian Dali</a></div>
+    <div class="nav-links">
+      <a href="/#work">Work</a>
+      <a href="/#education">Education</a>
+      <a href="/blog">Writing</a>
+      <a href="/#contact">Contact</a>
+    </div>
+    <button
+      class="nav-toggle"
+      onclick={() => menuOpen = !menuOpen}
+      aria-label="Toggle navigation"
+      aria-expanded={menuOpen}
+    >{menuOpen ? '✕' : '☰'}</button>
   </div>
+
+  {#if menuOpen}
+    <div class="nav-mobile-menu" transition:fly={{ y: -6, duration: 150 }}>
+      <a href="/#work"      onclick={() => menuOpen = false}>Work</a>
+      <a href="/#education" onclick={() => menuOpen = false}>Education</a>
+      <a href="/blog"       onclick={() => menuOpen = false}>Writing</a>
+      <a href="/#contact"   onclick={() => menuOpen = false}>Contact</a>
+    </div>
+  {/if}
 </nav>
 
 {@render children()}
@@ -29,11 +48,7 @@
 
 <style>
   nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 2.5rem;
-    background: rgba(250, 248, 243, 0.92);
+    background: rgba(250, 248, 243, 0.95);
     border-bottom: 0.5px solid #d4c9a8;
     position: sticky;
     top: 0;
@@ -41,11 +56,23 @@
     backdrop-filter: blur(8px);
   }
 
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+  }
+
   .nav-logo {
     font-family: 'Playfair Display', serif;
     font-size: 17px;
     font-weight: 700;
     color: #1c1a15;
+  }
+
+  .nav-logo a {
+    color: inherit;
+    text-decoration: none;
   }
 
   .nav-links {
@@ -63,6 +90,43 @@
   }
 
   .nav-links a:hover {
+    color: #c17f3a;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 20px;
+    color: #1c1a15;
+    line-height: 1;
+  }
+
+  .nav-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.25rem 0.5rem;
+    border-top: 0.5px solid #e8e0cc;
+  }
+
+  .nav-mobile-menu a {
+    font-size: 13px;
+    font-weight: 400;
+    color: #6b6147;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.9rem 0;
+    border-bottom: 0.5px solid #ede5d2;
+  }
+
+  .nav-mobile-menu a:last-child {
+    border-bottom: none;
+  }
+
+  .nav-mobile-menu a:hover {
     color: #c17f3a;
   }
 
@@ -105,13 +169,17 @@
     color: #d4c9a8;
   }
 
-  @media (max-width: 600px) {
-    nav {
+  @media (max-width: 700px) {
+    .nav-inner {
       padding: 1rem 1.25rem;
     }
 
     .nav-links {
-      gap: 1rem;
+      display: none;
+    }
+
+    .nav-toggle {
+      display: block;
     }
 
     footer {

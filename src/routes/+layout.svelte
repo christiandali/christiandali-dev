@@ -7,7 +7,12 @@
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo"><a href="/">Christian Dali</a></div>
+    <div class="nav-logo">
+      <a href="/">
+        <img src="/brand-mark.png" alt="Christian Dali logo" class="nav-brand-mark" />
+        Christian Dali
+      </a>
+    </div>
     <div class="nav-links">
       <a href="/#work">Work</a>
       <a href="/#education">Education</a>
@@ -73,6 +78,17 @@
   .nav-logo a {
     color: inherit;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-brand-mark {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
   }
 
   .nav-links {

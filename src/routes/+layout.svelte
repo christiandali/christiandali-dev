@@ -4,7 +4,7 @@
 </script>
 
 <nav>
-  <div class="nav-logo">Christian Dali</div>
+  <div class="nav-logo"><a href="/">Christian Dali</a></div>
   <div class="nav-links">
     <a href="/#work">Work</a>
     <a href="/#education">Education</a>

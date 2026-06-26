@@ -80,18 +80,24 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-eyebrow">
-      <div class="hero-dot"></div>
-      <span class="hero-label">Full-stack developer · Community Builder</span>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-dot"></div>
+        <span class="hero-label">Full-stack developer · Community Builder</span>
+      </div>
+      <h1>Hey, I'm Chris :)</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
+      <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
+      <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">See my work</a>
+        <a href="#contact" class="btn-secondary">Get in touch</a>
+      </div>
     </div>
-    <h1>Hey, I'm Chris :)</h1>
-    <div class="hero-rule"></div>
-    <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
-    <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
-    <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
-    <div class="hero-actions">
-      <a href="#work" class="btn-primary">See my work</a>
-      <a href="#contact" class="btn-secondary">Get in touch</a>
+
+    <div class="hero-map" aria-hidden="true">
+      <img src="/central-valley-map.png" alt="" class="valley-map"/>
     </div>
   </section>
 
@@ -216,8 +222,55 @@
 
   /* Hero */
   .hero {
-    padding: 5rem 2.5rem 4rem;
-    max-width: 760px;
+    padding: 5rem 0 4rem 2.5rem;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    min-height: 78vh;
+    position: relative;
+  }
+
+  .hero-content {
+    flex: 0 0 auto;
+    width: min(52%, 580px);
+    padding-right: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-map {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 65%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .valley-map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 38% center;
+    display: block;
+    -webkit-mask-image: radial-gradient(
+      ellipse 82% 88% at 62% 50%,
+      rgba(0,0,0,0.95) 0%,
+      rgba(0,0,0,0.88) 28%,
+      rgba(0,0,0,0.55) 50%,
+      rgba(0,0,0,0.18) 67%,
+      transparent 82%
+    );
+    mask-image: radial-gradient(
+      ellipse 82% 88% at 62% 50%,
+      rgba(0,0,0,0.95) 0%,
+      rgba(0,0,0,0.88) 28%,
+      rgba(0,0,0,0.55) 50%,
+      rgba(0,0,0,0.18) 67%,
+      transparent 82%
+    );
   }
 
   .hero-eyebrow {
@@ -657,11 +710,24 @@
   }
 
   /* Mobile */
-  @media (max-width: 600px) {
+  @media (max-width: 860px) {
     .hero {
+      display: block;
       padding: 3rem 1.25rem 2.5rem;
+      min-height: unset;
     }
 
+    .hero-content {
+      width: 100%;
+      padding-right: 0;
+    }
+
+    .hero-map {
+      display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
     h1 {
       font-size: 36px;
     }

@@ -255,22 +255,14 @@
     object-fit: cover;
     object-position: 38% center;
     display: block;
-    -webkit-mask-image: radial-gradient(
-      ellipse 82% 88% at 62% 50%,
-      rgba(0,0,0,0.95) 0%,
-      rgba(0,0,0,0.88) 28%,
-      rgba(0,0,0,0.55) 50%,
-      rgba(0,0,0,0.18) 67%,
-      transparent 82%
-    );
-    mask-image: radial-gradient(
-      ellipse 82% 88% at 62% 50%,
-      rgba(0,0,0,0.95) 0%,
-      rgba(0,0,0,0.88) 28%,
-      rgba(0,0,0,0.55) 50%,
-      rgba(0,0,0,0.18) 67%,
-      transparent 82%
-    );
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, black 14%),
+      radial-gradient(ellipse 82% 88% at 62% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 28%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 67%, transparent 82%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, transparent 0%, black 14%),
+      radial-gradient(ellipse 82% 88% at 62% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 28%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 67%, transparent 82%);
+    mask-composite: intersect;
   }
 
   .hero-eyebrow {
@@ -720,7 +712,10 @@
 
     .hero-content {
       width: 100%;
-      padding: 2rem 1.25rem 2.5rem;
+      padding: 0.75rem 1.25rem 2.5rem;
+      margin-top: -2rem;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-map {
@@ -735,20 +730,22 @@
     .valley-map {
       opacity: 1;
       object-position: 45% 38%;
+      transform: scale(1.25);
+      transform-origin: center center;
       -webkit-mask-image: linear-gradient(
         to bottom,
         black 0%,
-        black 42%,
-        rgba(0,0,0,0.55) 68%,
-        rgba(0,0,0,0.08) 88%,
+        black 35%,
+        rgba(0,0,0,0.5) 62%,
+        rgba(0,0,0,0.05) 85%,
         transparent 100%
       );
       mask-image: linear-gradient(
         to bottom,
         black 0%,
-        black 42%,
-        rgba(0,0,0,0.55) 68%,
-        rgba(0,0,0,0.08) 88%,
+        black 35%,
+        rgba(0,0,0,0.5) 62%,
+        rgba(0,0,0,0.05) 85%,
         transparent 100%
       );
     }

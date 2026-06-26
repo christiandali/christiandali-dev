@@ -29,10 +29,20 @@
 
   const roots = [
     { icon: 'ti-plant', label: 'Agriculture' },
-    { icon: 'ti-school', label: 'Education' },
     { icon: 'ti-droplet', label: 'Oil & Energy' },
-    { icon: 'ti-car', label: 'Downtown Culture' },
-    { icon: 'ti-heart', label: 'Community' }
+    { icon: 'ti-music', label: 'Bakersfield Sound' },
+    { icon: 'ti-school', label: 'Education' },
+    { icon: 'ti-wave-sine', label: 'Kern River' },
+    { icon: 'ti-heart', label: 'Community' },
+    { icon: 'ti-cloud', label: 'Tule Fog' },
+    { icon: 'ti-car', label: 'Lowrider Culture' },
+    { icon: 'ti-wind', label: 'Wind Country' },
+    { icon: 'ti-building', label: 'Downtown Culture' },
+    { icon: 'ti-sun', label: '100° Summers' },
+    { icon: 'ti-trophy', label: 'Friday Night Lights' },
+    { icon: 'ti-leaf', label: 'Pistachios & Almonds' },
+    { icon: 'ti-horse', label: 'Stagecoach Roots' },
+    { icon: 'ti-bowl', label: 'Basque Heritage' },
   ];
 </script>
 
@@ -46,23 +56,27 @@
       <div class="hero-dot"></div>
       <span class="hero-label">Full-stack developer · Bakersfield, CA</span>
     </div>
-    <h1>Building tools<br>for people<br>who grow things.</h1>
-    <p class="hero-sub">I build practical software for agriculture, education, and community — rooted in the Central Valley and pointed toward what's possible.</p>
-    <p class="hero-philosophy">"The unknown is the greatest source of creativity."</p>
+    <h1>Hey, I'm Chris.</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-body">I'm a developer born and raised right here in the Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
+    <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands. Together, we might build something our friends and neighbors never could have imagined alone.</p>
+    <p class="hero-body">Whether you know exactly what you need or have no idea where to start — that's okay. Let's just talk.</p>
     <div class="hero-actions">
       <a href="#work" class="btn-primary">See my work</a>
       <a href="#contact" class="btn-secondary">Get in touch</a>
     </div>
   </section>
 
-  <!-- Roots strip -->
-  <div class="roots-strip">
-    {#each roots as root}
-      <div class="roots-item">
-        <i class="ti {root.icon}" aria-hidden="true"></i>
-        <span>{root.label}</span>
-      </div>
-    {/each}
+  <!-- Roots marquee -->
+  <div class="roots-marquee" aria-label="What makes the Valley the Valley">
+    <div class="marquee-track">
+      {#each [...roots, ...roots, ...roots] as root}
+        <div class="roots-item">
+          <i class="ti {root.icon}" aria-hidden="true"></i>
+          <span>{root.label}</span>
+        </div>
+      {/each}
+    </div>
   </div>
 
   <!-- Work -->
@@ -182,26 +196,28 @@
     font-weight: 700;
     line-height: 1.1;
     color: #1c1a15;
-    margin: 0 0 1.5rem;
+    margin: 0 0 1.25rem;
   }
 
-  .hero-sub {
-    font-size: 17px;
-    line-height: 1.7;
+  .hero-rule {
+    width: 40px;
+    height: 3px;
+    background: #c17f3a;
+    border-radius: 2px;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-body {
+    font-size: 16px;
+    line-height: 1.75;
     color: #5a5340;
-    max-width: 520px;
-    margin-bottom: 1rem;
+    max-width: 560px;
+    margin-bottom: 1.1rem;
     font-weight: 300;
   }
 
-  .hero-philosophy {
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    font-style: italic;
-    color: #9e7e4a;
+  .hero-body:last-of-type {
     margin-bottom: 2.5rem;
-    padding-left: 1rem;
-    border-left: 2px solid #c17f3a;
   }
 
   .hero-actions {
@@ -250,14 +266,50 @@
     background: #f0ead8;
   }
 
-  /* Roots strip */
-  .roots-strip {
+  /* Roots marquee */
+  .roots-marquee {
     background: #2d5a3d;
-    padding: 1.25rem 2.5rem;
+    padding: 1.1rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .roots-marquee::before,
+  .roots-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4rem;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .roots-marquee::before {
+    left: 0;
+    background: linear-gradient(to right, #2d5a3d, transparent);
+  }
+
+  .roots-marquee::after {
+    right: 0;
+    background: linear-gradient(to left, #2d5a3d, transparent);
+  }
+
+  .marquee-track {
     display: flex;
-    gap: 2.5rem;
     align-items: center;
-    flex-wrap: wrap;
+    gap: 0;
+    width: max-content;
+    animation: marquee 55s linear infinite;
+  }
+
+  .roots-marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% / 3)); }
   }
 
   .roots-item {
@@ -265,11 +317,24 @@
     align-items: center;
     gap: 0.5rem;
     color: #c8dcc8;
+    padding: 0 2rem;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .roots-item::after {
+    content: '·';
+    position: absolute;
+    right: -0.15rem;
+    color: #4a7a5a;
+    font-size: 16px;
+    line-height: 1;
   }
 
   .roots-item i {
-    font-size: 15px;
+    font-size: 14px;
     color: #8fbc8f;
+    flex-shrink: 0;
   }
 
   .roots-item span {
@@ -478,9 +543,8 @@
       padding: 3rem 1.25rem;
     }
 
-    .roots-strip {
-      gap: 1.25rem;
-      padding: 1.25rem;
+    .roots-marquee {
+      padding: 1rem 0;
     }
   }
 </style>

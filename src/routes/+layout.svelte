@@ -84,8 +84,8 @@
   }
 
   .nav-brand-mark {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     object-fit: contain;
     display: block;
     flex-shrink: 0;

@@ -729,19 +729,20 @@
 
     .valley-map {
       object-position: 55% 35%;
+      opacity: 0.35;
       -webkit-mask-image: radial-gradient(
         ellipse 115% 85% at 62% 42%,
-        rgba(0,0,0,0.42) 0%,
-        rgba(0,0,0,0.35) 35%,
-        rgba(0,0,0,0.12) 60%,
-        transparent 78%
+        black 0%,
+        rgba(0,0,0,0.7) 40%,
+        rgba(0,0,0,0.2) 65%,
+        transparent 82%
       );
       mask-image: radial-gradient(
         ellipse 115% 85% at 62% 42%,
-        rgba(0,0,0,0.42) 0%,
-        rgba(0,0,0,0.35) 35%,
-        rgba(0,0,0,0.12) 60%,
-        transparent 78%
+        black 0%,
+        rgba(0,0,0,0.7) 40%,
+        rgba(0,0,0,0.2) 65%,
+        transparent 82%
       );
     }
   }

@@ -3,17 +3,27 @@
 
   const projects = [
     {
-      name: 'Canopy',
+      name: 'PyraMED Implementation Tool',
+      tag: 'In Development',
+      tagType: 'amber',
+      label: 'Dali Labs',
+      desc: 'An AI-powered web app designed to help specialists copy paste scripts that will help customize the PyraMED application patient info title bar.',
+      meta: 'Sveltekit · Supabase · AI · 2026–Present',
+      featured: true
+    },
+    {
+      name: 'Canopy x FarmersOS',
       tag: 'In Development',
       tagType: 'amber',
       label: 'Dali Labs',
       desc: 'An AI-powered intelligence platform for Central Valley specialty crop farms — harvest analytics, field performance, and crop insights for pistachio, almond, and stone fruit operations.',
-      meta: 'SvelteKit · Firebase · AI · 2025–Present',
+      meta: 'Blazor · ASP.NET · Firebase · AI · 2026–Present',
       featured: true
     },
     {
       name: 'BAA Admissions Chatbot',
       tag: 'Completed',
+      label: 'Dali Labs',
       tagType: 'default',
       desc: 'AI admissions assistant for Bakersfield Adventist Academy — Claude API proxied through Cloudflare Workers, embedded in WordPress with lead capture.',
       meta: 'Volunteer · 2025'
@@ -21,6 +31,7 @@
     {
       name: 'Snapshot',
       tag: 'Live',
+      label: 'Dali Labs',
       tagType: 'green',
       desc: 'Unified ISP support dashboard consolidating data from multiple vendor portals into a single view for Level 1 technicians during live customer calls.',
       meta: 'CSUMB Capstone · IT-Optics · 2023',

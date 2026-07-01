@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fly } from 'svelte/transition';
+  import { fly, fade } from 'svelte/transition';
 
   const projects = [
     {
@@ -69,9 +69,49 @@
   ];
 
   let activeItem: (typeof roots)[number] | null = $state(null);
+  let contactOpen = $state(false);
 
   function handleItemClick(root: (typeof roots)[number]) {
     activeItem = activeItem?.label === root.label ? null : root;
+  }
+
+  function openContact() {
+    contactOpen = true;
+  }
+
+  function closeContact() {
+    contactOpen = false;
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape' && contactOpen) closeContact();
+  }
+
+  $effect(() => {
+    document.body.style.overflow = contactOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  });
+
+  function saveContact() {
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:Christian Dali',
+      'TITLE:Full-Stack Developer',
+      'EMAIL;type=INTERNET:christiandali.dev@gmail.com',
+      'URL;type=GitHub:https://github.com/christiandali',
+      'URL;type=LinkedIn:https://linkedin.com/in/christiandali',
+      'NOTE:Full-stack developer · Community Builder · Central Valley CA',
+      'END:VCARD'
+    ].join('\r\n');
+
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'christian-dali.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
   }
 </script>
 
@@ -92,7 +132,7 @@
       <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
       <div class="hero-actions">
         <a href="#work" class="btn-primary">See my work</a>
-        <a href="#contact" class="btn-secondary">Get in touch</a>
+        <button class="btn-secondary" onclick={openContact}>Get in touch</button>
       </div>
     </div>
 
@@ -213,7 +253,99 @@
     </div>
   </section>
 
+
+  <!-- Contact Bottom Sheet -->
+  {#if contactOpen}
+    <div
+      class="sheet-backdrop"
+      transition:fade={{ duration: 200 }}
+      onclick={closeContact}
+      role="presentation"
+    ></div>
+
+    <div
+      class="contact-sheet"
+      transition:fly={{ y: 500, duration: 340, opacity: 1 }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Contact Christian Dali"
+    >
+      <div class="sheet-handle"></div>
+
+      <div class="sheet-header">
+        <div class="sheet-avatar">CD</div>
+        <div class="sheet-identity">
+          <div class="sheet-name">Christian Dali</div>
+          <div class="sheet-title">Full-Stack Developer · Central Valley</div>
+        </div>
+      </div>
+
+      <div class="sheet-divider"></div>
+
+      <div class="sheet-actions">
+        <button class="sheet-action" onclick={saveContact}>
+          <div class="action-icon-wrap green">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <div class="action-text">
+            <div class="action-label">Save Contact</div>
+            <div class="action-sub">Download .vcf to your contacts</div>
+          </div>
+          <div class="action-arrow">→</div>
+        </button>
+
+        <a href="mailto:christiandali.dev@gmail.com" class="sheet-action">
+          <div class="action-icon-wrap amber">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="action-text">
+            <div class="action-label">Email Me</div>
+            <div class="action-sub">christiandali.dev@gmail.com</div>
+          </div>
+          <div class="action-arrow">→</div>
+        </a>
+
+        <a href="https://linkedin.com/in/christiandali" target="_blank" rel="noopener" class="sheet-action">
+          <div class="action-icon-wrap slate">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div class="action-text">
+            <div class="action-label">LinkedIn</div>
+            <div class="action-sub">linkedin.com/in/christiandali</div>
+          </div>
+          <div class="action-arrow">→</div>
+        </a>
+
+        <a href="https://github.com/christiandali" target="_blank" rel="noopener" class="sheet-action">
+          <div class="action-icon-wrap slate">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </div>
+          <div class="action-text">
+            <div class="action-label">GitHub</div>
+            <div class="action-sub">github.com/christiandali</div>
+          </div>
+          <div class="action-arrow">→</div>
+        </a>
+
+        <div class="sheet-action disabled">
+          <div class="action-icon-wrap muted">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+          </div>
+          <div class="action-text">
+            <div class="action-label">Wallet Pass</div>
+            <div class="action-sub">iOS · Coming soon</div>
+          </div>
+          <div class="action-badge">Soon</div>
+        </div>
+      </div>
+
+      <button class="sheet-close-btn" onclick={closeContact}>Close</button>
+    </div>
+  {/if}
+
 </main>
+
+<svelte:window onkeydown={handleKeydown} />
 
 <style>
   main {
@@ -778,5 +910,192 @@
       transform: none;
       min-width: unset;
     }
+  }
+
+  /* Contact Bottom Sheet */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 26, 21, 0.45);
+    z-index: 100;
+    backdrop-filter: blur(2px);
+  }
+
+  .contact-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    background: #faf8f3;
+    border-radius: 16px 16px 0 0;
+    padding: 0 0 env(safe-area-inset-bottom, 1rem);
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    background: #d4c9a8;
+    border-radius: 2px;
+    margin: 0.75rem auto 0;
+  }
+
+  .sheet-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem 1rem;
+  }
+
+  .sheet-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #2d5a3d;
+    color: #f0ead8;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sheet-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1c1a15;
+    line-height: 1.2;
+  }
+
+  .sheet-title {
+    font-size: 12px;
+    color: #b0a07a;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  .sheet-divider {
+    height: 0.5px;
+    background: #e8e0ca;
+    margin: 0 1.5rem;
+  }
+
+  .sheet-actions {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+
+  .sheet-action {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.875rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    text-align: left;
+    transition: background 120ms ease;
+  }
+
+  .sheet-action:hover:not(.disabled) {
+    background: #f0ead8;
+  }
+
+  .sheet-action.disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .action-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .action-icon-wrap.green {
+    background: #2d5a3d;
+    color: #f0ead8;
+  }
+
+  .action-icon-wrap.amber {
+    background: #c17f3a;
+    color: #fff;
+  }
+
+  .action-icon-wrap.slate {
+    background: #3a3528;
+    color: #f0ead8;
+  }
+
+  .action-icon-wrap.muted {
+    background: #e8e0ca;
+    color: #b0a07a;
+  }
+
+  .action-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .action-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1c1a15;
+    line-height: 1.3;
+  }
+
+  .action-sub {
+    font-size: 12px;
+    color: #b0a07a;
+    margin-top: 1px;
+  }
+
+  .action-arrow {
+    font-size: 14px;
+    color: #d4c9a8;
+  }
+
+  .action-badge {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #b0a07a;
+    border: 0.5px solid #d4c9a8;
+    border-radius: 3px;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .sheet-close-btn {
+    display: block;
+    width: calc(100% - 3rem);
+    margin: 0.5rem 1.5rem 1.25rem;
+    padding: 0.75rem;
+    background: #f0ead8;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #5a5340;
+    cursor: pointer;
+  }
+
+  .sheet-close-btn:hover {
+    background: #e8e0ca;
   }
 </style>

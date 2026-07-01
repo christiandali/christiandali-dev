@@ -1,5 +1,33 @@
 <script lang="ts">
-  import { fly } from 'svelte/transition';
+  let showContact = $state(false);
+
+  function openContact() {
+    showContact = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContact() {
+    showContact = false;
+    document.body.style.overflow = '';
+  }
+
+  function downloadVCard() {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Christian Dali Rodriguez
+TITLE:Full-Stack Developer
+EMAIL:christiandali.dev@gmail.com
+URL:https://christiandali.dev
+NOTE:Builder from Bakersfield CA — Dali Labs
+END:VCARD`;
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'christian-dali.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   const projects = [
     {
@@ -30,111 +58,54 @@
   ];
 
   const roots = [
-    { emoji: '🎓', label: 'Education', bullets: ['Attendance tracking', 'Grade reporting', 'Parent communication', 'Curriculum planning', 'Resource sharing'] },
-    { emoji: '🎶', label: 'Music', bullets: ['Venue booking', 'Practice scheduling', 'Fan engagement', 'Lesson booking', 'Merch management'] },
-    { emoji: '📚', label: 'Libraries', bullets: ['Digital catalog', 'Event scheduling', 'Borrowing tracking', 'Community programs', 'Resource discovery'] },
-    { emoji: '🚚', label: 'Food Trucks', bullets: ['Live location tracking', 'Order ahead', 'Schedule management', 'Customer loyalty', 'Menu updates'] },
-    { emoji: '☕', label: 'Coffee Shops', bullets: ['Loyalty programs', 'Order ahead', 'Inventory tracking', 'Staff scheduling', 'Local discovery'] },
-    { emoji: '🏥', label: 'Healthcare', bullets: ['Appointment booking', 'Patient navigation', 'Insurance coordination', 'Telehealth tools', 'Referral tracking'] },
-    { emoji: '🏫', label: 'Schools', bullets: ['Communication tools', 'Scheduling', 'Student support', 'Parent engagement', 'Resource allocation'] },
-    { emoji: '🎭', label: 'Arts', bullets: ['Ticketing', 'Artist discovery', 'Grant tracking', 'Venue booking', 'Community outreach'] },
-    { emoji: '⚾', label: 'Youth Sports', bullets: ['League scheduling', 'Team registration', 'Score tracking', 'Volunteer coordination', 'Parent communication'] },
-    { emoji: '🚴', label: 'Outdoor Recreation', bullets: ['Trail mapping', 'Gear rentals', 'Group coordination', 'Event planning', 'Safety alerts'] },
-    { emoji: '🐕', label: 'Animal Welfare', bullets: ['Adoption matching', 'Foster coordination', 'Donation tracking', 'Volunteer scheduling', 'Medical records'] },
-    { emoji: '🌳', label: 'Parks', bullets: ['Facility booking', 'Maintenance scheduling', 'Usage analytics', 'Event coordination', 'Volunteer management'] },
-    { emoji: '📖', label: 'Local Authors', bullets: ['Publishing tools', 'Event booking', 'Reader engagement', 'Distribution', 'Community building'] },
-    { emoji: '🎪', label: 'Community Events', bullets: ['Registration', 'Volunteer coordination', 'Ticketing', 'Promotion', 'Vendor management'] },
-    { emoji: '🏛️', label: 'Local Government', bullets: ['Permitting', 'Public records', 'Citizen requests', 'Meeting scheduling', 'Service tracking'] },
-    { emoji: '🚒', label: 'Public Safety', bullets: ['Dispatch coordination', 'Training records', 'Incident reporting', 'Community alerts', 'Equipment tracking'] },
-    { emoji: '🍊', label: 'Farmers Markets', bullets: ['Vendor management', 'Online pre-orders', 'Loyalty programs', 'Location & hours', 'Inventory'] },
-    { emoji: '🚂', label: 'Transportation', bullets: ['Route planning', 'Real-time tracking', 'Accessibility info', 'Multi-modal routing', 'Schedule updates'] },
-    { emoji: '🏡', label: 'Neighborhoods', bullets: ['Community boards', 'Resource sharing', 'Safety reporting', 'Local services', 'Event coordination'] },
-    { emoji: '🎮', label: 'Gaming', bullets: ['Tournament management', 'Local event booking', 'Community building', 'Venue discovery', 'Streaming tools'] },
-    { emoji: '🎬', label: 'Film', bullets: ['Location scouting', 'Crew coordination', 'Production management', 'Permit tracking', 'Distribution'] },
-    { emoji: '🎤', label: 'Performing Arts', bullets: ['Ticketing', 'Rehearsal scheduling', 'Venue management', 'Talent booking', 'Audience engagement'] },
-    { emoji: '💼', label: 'Small Business', bullets: ['Inventory management', 'Customer tracking', 'Appointment booking', 'Marketing tools', 'Financial reporting'] },
-    { emoji: '🏗️', label: 'Construction', bullets: ['Project management', 'Permit tracking', 'Subcontractor coordination', 'Safety compliance', 'Material tracking'] },
-    { emoji: '🔋', label: 'Renewable Energy', bullets: ['Production monitoring', 'Maintenance scheduling', 'Grid integration', 'ROI tracking', 'Permitting'] },
-    { emoji: '✈️', label: 'Aviation', bullets: ['Maintenance tracking', 'Flight scheduling', 'Training records', 'Safety reporting', 'Parts inventory'] },
-    { emoji: '📦', label: 'Logistics', bullets: ['Route optimization', 'Inventory tracking', 'Delivery management', 'Customer communication', 'Analytics'] },
-    { emoji: '🌎', label: 'Nonprofits', bullets: ['Donor management', 'Volunteer coordination', 'Grant tracking', 'Impact reporting', 'Community outreach'] },
-    { emoji: '🧑‍🍳', label: 'Restaurants', bullets: ['Reservation management', 'Menu tools', 'Inventory tracking', 'Staff scheduling', 'Customer loyalty'] },
-    { emoji: '🌱', label: 'Sustainability', bullets: ['Impact tracking', 'Resource monitoring', 'Community engagement', 'Certification management', 'Reporting'] },
-    { emoji: '📷', label: 'Tourism', bullets: ['Visitor guides', 'Local discovery', 'Experience curation', 'Booking integration', 'Review management'] },
-    { emoji: '🏕️', label: 'Camping', bullets: ['Reservation systems', 'Trail info', 'Safety alerts', 'Equipment rentals', 'Group coordination'] },
-    { emoji: '📚', label: 'Literacy', bullets: ['Reading tracking', 'Tutor matching', 'Resource sharing', 'Progress monitoring', 'Community programs'] },
-    { emoji: '💡', label: 'Startups', bullets: ['Mentor matching', 'Resource discovery', 'Co-founder matching', 'Investor connections', 'Community building'] },
-    { emoji: '🧠', label: 'Mental Health', bullets: ['Provider matching', 'Appointment booking', 'Resource discovery', 'Crisis support', 'Community connection'] },
-    { emoji: '🤝', label: 'Community Organizations', bullets: ['Member management', 'Event coordination', 'Volunteer tracking', 'Communication tools', 'Impact reporting'] },
+    { icon: 'ti-plant', label: 'Agriculture' },
+    { icon: 'ti-droplet', label: 'Oil & Energy' },
+    { icon: 'ti-music', label: 'Music' },
+    { icon: 'ti-school', label: 'Education' },
+    { icon: 'ti-wave-sine', label: 'Kern River' },
+    { icon: 'ti-heart', label: 'Community' },
+    { icon: 'ti-cloud', label: 'Tule Fog' },
+    { icon: 'ti-car', label: 'Lowrider Culture' },
+    { icon: 'ti-wind', label: 'Wind Country' },
+    { icon: 'ti-building', label: 'Downtown Culture' },
+    { icon: 'ti-sun', label: '100° Summers' },
+    { icon: 'ti-trophy', label: 'Friday Night Lights' },
+    { icon: 'ti-leaf', label: 'Pistachios & Almonds' },
+    { icon: 'ti-horse', label: 'Stagecoach Roots' },
+    { icon: 'ti-bowl', label: 'Basque Heritage' },
   ];
-
-  let activeItem: (typeof roots)[number] | null = $state(null);
-
-  function handleItemClick(root: (typeof roots)[number]) {
-    activeItem = activeItem?.label === root.label ? null : root;
-  }
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
 <main>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <div class="hero-dot"></div>
-        <span class="hero-label">Full-stack developer · Community Builder</span>
-      </div>
-      <h1>Hey, I'm Chris :)</h1>
-      <div class="hero-rule"></div>
-      <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
-      <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
-      <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
-      <div class="hero-actions">
-        <a href="#work" class="btn-primary">See my work</a>
-        <a href="#contact" class="btn-secondary">Get in touch</a>
-      </div>
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="hero-label">Full-stack developer · Community Builder</span>
     </div>
-
-    <div class="hero-map" aria-hidden="true">
-      <img src="/central-valley-map.png" alt="" class="valley-map"/>
+    <h1>Hey, I'm Chris :)</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
+    <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
+    <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">See my work</a>
+      <button class="btn-secondary" onclick={openContact}>Get in touch</button>
     </div>
   </section>
 
   <!-- Roots marquee -->
-  <div class="roots-outer" role="region" aria-label="Explore what software could improve" onmouseleave={() => activeItem = null}>
-    {#if activeItem}
-      <div class="expand-card" transition:fly={{ y: 6, duration: 150 }}>
-        <div class="expand-title">
-          <span class="expand-emoji">{activeItem.emoji}</span>
-          <span class="expand-name">{activeItem.label}</span>
+  <div class="roots-marquee" aria-label="What makes the Valley the Valley">
+    <div class="marquee-track">
+      {#each [...roots, ...roots, ...roots] as root}
+        <div class="roots-item">
+          <i class="ti {root.icon}" aria-hidden="true"></i>
+          <span>{root.label}</span>
         </div>
-        <div class="expand-divider">↓</div>
-        <div class="expand-question">What could software improve?</div>
-        <ul class="expand-list">
-          {#each activeItem.bullets as bullet}
-            <li>{bullet}</li>
-          {/each}
-        </ul>
-      </div>
-    {/if}
-    <div class="roots-marquee" aria-label="Explore what software could improve">
-      <div
-        class="marquee-track"
-        style:animation-play-state={activeItem ? 'paused' : 'running'}
-      >
-        {#each [...roots, ...roots, ...roots] as root}
-          <button
-            class="roots-item"
-            onmouseenter={() => activeItem = root}
-            onclick={() => handleItemClick(root)}
-            aria-pressed={activeItem?.label === root.label}
-          >
-            <span class="roots-emoji" aria-hidden="true">{root.emoji}</span>
-            <span>{root.label}</span>
-          </button>
-        {/each}
-      </div>
+      {/each}
     </div>
   </div>
 
@@ -199,19 +170,76 @@
     </div>
   </section>
 
-  <!-- Contact -->
-  <section class="section" id="contact">
-    <div class="section-header">
-      <h2 class="section-title">Get In Touch</h2>
-      <span class="section-sub">Let's work together</span>
+<!-- Contact -->
+<section class="section" id="contact">
+  <div class="section-header">
+    <h2 class="section-title">Get In Touch</h2>
+    <span class="section-sub">Let's work together</span>
+  </div>
+  <p class="contact-intro">I'm open to freelance projects, full-time opportunities, and conversations about building something new in the Central Valley.</p>
+  <div class="contact-links">
+    <button class="btn-primary" onclick={openContact}>Get in touch</button>
+    <a href="https://github.com/christiandali" target="_blank" class="btn-secondary">GitHub</a>
+    <a href="https://linkedin.com/in/christiandali" target="_blank" class="btn-secondary">LinkedIn</a>
+  </div>
+</section>
+
+<!-- Contact Modal -->
+{#if showContact}
+  <div class="modal-overlay" onclick={closeContact} role="dialog" aria-modal="true">
+    <div class="modal-sheet" onclick={(e) => e.stopPropagation()}>
+      <div class="modal-handle"></div>
+
+      <div class="modal-header">
+        <div class="modal-avatar">CD</div>
+        <div>
+          <div class="modal-name">Christian Dali</div>
+          <div class="modal-title">Full-Stack Developer · Bakersfield, CA</div>
+        </div>
+        <button class="modal-close" onclick={closeContact} aria-label="Close">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick={downloadVCard}>
+          <i class="ti ti-address-card" aria-hidden="true"></i>
+          Save Contact
+        </button>
+        <a href="mailto:christiandali.dev@gmail.com" class="modal-btn secondary">
+          <i class="ti ti-mail" aria-hidden="true"></i>
+          Email Me
+        </a>
+      </div>
+
+      <div class="modal-qr">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://christiandali.dev&color=1c1a15&bgcolor=faf8f3"
+          alt="QR code for christiandali.dev"
+          width="120"
+          height="120"
+        />
+        <p class="modal-qr-label">Scan to visit christiandali.dev</p>
+      </div>
+
+      <div class="modal-links">
+        <a href="https://github.com/christiandali" target="_blank" class="modal-link">
+          <i class="ti ti-brand-github" aria-hidden="true"></i>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/christiandali" target="_blank" class="modal-link">
+          <i class="ti ti-brand-linkedin" aria-hidden="true"></i>
+          LinkedIn
+        </a>
+        <a href="https://christiandali.dev" class="modal-link">
+          <i class="ti ti-world" aria-hidden="true"></i>
+          Website
+        </a>
+      </div>
+
     </div>
-    <p class="contact-intro">I'm open to freelance projects, full-time opportunities, and conversations about building something new in the Central Valley.</p>
-    <div class="contact-links">
-      <a href="mailto:christiandali.dev@gmail.com" class="btn-primary">Email Me</a>
-      <a href="https://github.com/christiandali" target="_blank" class="btn-secondary">GitHub</a>
-      <a href="https://linkedin.com/in/christiandali" target="_blank" class="btn-secondary">LinkedIn</a>
-    </div>
-  </section>
+  </div>
+{/if}
 
 </main>
 
@@ -222,47 +250,8 @@
 
   /* Hero */
   .hero {
-    padding: 5rem 0 4rem 2.5rem;
-    max-width: 100%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    min-height: 78vh;
-    position: relative;
-  }
-
-  .hero-content {
-    flex: 0 0 auto;
-    width: min(52%, 580px);
-    padding-right: 1rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-map {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 65%;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .valley-map {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 38% center;
-    display: block;
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, black 14%),
-      radial-gradient(ellipse 82% 88% at 62% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 28%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 67%, transparent 82%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0%, black 14%),
-      radial-gradient(ellipse 82% 88% at 62% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.88) 28%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 67%, transparent 82%);
-    mask-composite: intersect;
+    padding: 5rem 2.5rem 4rem;
+    max-width: 760px;
   }
 
   .hero-eyebrow {
@@ -365,84 +354,6 @@
   }
 
   /* Roots marquee */
-  .roots-outer {
-    position: relative;
-  }
-
-  .expand-card {
-    position: absolute;
-    bottom: calc(100% + 0.5rem);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 20;
-    background: #faf8f3;
-    border: 0.5px solid #d4c9a8;
-    border-left: 3px solid #c17f3a;
-    border-radius: 4px;
-    padding: 1.25rem 1.5rem;
-    min-width: 210px;
-    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.1);
-    pointer-events: none;
-  }
-
-  .expand-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .expand-emoji {
-    font-size: 20px;
-    line-height: 1;
-  }
-
-  .expand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    color: #1c1a15;
-  }
-
-  .expand-divider {
-    font-size: 13px;
-    color: #c17f3a;
-    margin-bottom: 0.4rem;
-  }
-
-  .expand-question {
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #c17f3a;
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-  }
-
-  .expand-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .expand-list li {
-    font-size: 12px;
-    color: #5a5340;
-    line-height: 1.4;
-    padding-left: 0.9rem;
-    position: relative;
-  }
-
-  .expand-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #8fbc8f;
-  }
-
   .roots-marquee {
     background: #2d5a3d;
     padding: 1.1rem 0;
@@ -476,7 +387,11 @@
     align-items: center;
     gap: 0;
     width: max-content;
-    animation: marquee 110s linear infinite;
+    animation: marquee 55s linear infinite;
+  }
+
+  .roots-marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
 
   @keyframes marquee {
@@ -489,17 +404,9 @@
     align-items: center;
     gap: 0.5rem;
     color: #c8dcc8;
-    padding: 0 1.75rem;
+    padding: 0 2rem;
     position: relative;
     white-space: nowrap;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-  }
-
-  .roots-item:hover {
-    color: #e8f5e8;
   }
 
   .roots-item::after {
@@ -511,13 +418,13 @@
     line-height: 1;
   }
 
-  .roots-emoji {
-    font-size: 15px;
-    line-height: 1;
+  .roots-item i {
+    font-size: 14px;
+    color: #8fbc8f;
     flex-shrink: 0;
   }
 
-  .roots-item span:not(.roots-emoji) {
+  .roots-item span {
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -702,56 +609,11 @@
   }
 
   /* Mobile */
-  @media (max-width: 860px) {
-    .hero {
-      flex-direction: column;
-      align-items: stretch;
-      padding: 0;
-      min-height: unset;
-    }
-
-    .hero-content {
-      width: 100%;
-      padding: 0.75rem 1.25rem 2.5rem;
-      margin-top: -2rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-map {
-      position: relative;
-      inset: auto;
-      width: 100%;
-      height: 32vw;
-      max-height: 160px;
-      order: -1;
-    }
-
-    .valley-map {
-      opacity: 1;
-      object-position: 45% 38%;
-      transform: scale(1.25);
-      transform-origin: center center;
-      -webkit-mask-image: linear-gradient(
-        to bottom,
-        black 0%,
-        black 35%,
-        rgba(0,0,0,0.5) 62%,
-        rgba(0,0,0,0.05) 85%,
-        transparent 100%
-      );
-      mask-image: linear-gradient(
-        to bottom,
-        black 0%,
-        black 35%,
-        rgba(0,0,0,0.5) 62%,
-        rgba(0,0,0,0.05) 85%,
-        transparent 100%
-      );
-    }
-  }
-
   @media (max-width: 600px) {
+    .hero {
+      padding: 3rem 1.25rem 2.5rem;
+    }
+
     h1 {
       font-size: 36px;
     }
@@ -771,12 +633,179 @@
     .roots-marquee {
       padding: 1rem 0;
     }
-
-    .expand-card {
-      left: 1rem;
-      right: 1rem;
-      transform: none;
-      min-width: unset;
-    }
   }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(28, 26, 21, 0.6);
+    z-index: 200;
+    display: flex;
+    align-items: flex-end;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-sheet {
+    background: #faf8f3;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 1rem 1.5rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    background: #d4c9a8;
+    border-radius: 2px;
+    margin: 0 auto 0.5rem;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .modal-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #2d5a3d;
+    color: #f0ead8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .modal-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1c1a15;
+  }
+
+  .modal-title {
+    font-size: 12px;
+    color: #8a7a5a;
+    margin-top: 2px;
+  }
+
+  .modal-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b0a07a;
+    font-size: 20px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .modal-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+  }
+
+  .modal-btn.primary {
+    background: #2d5a3d;
+    color: #f0ead8;
+  }
+
+  .modal-btn.secondary {
+    background: #f0ead8;
+    color: #2d5a3d;
+    border: 1px solid #d4c9a8;
+  }
+
+  .modal-btn i {
+    font-size: 16px;
+  }
+
+  .modal-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 0.5px solid #d4c9a8;
+    border-radius: 8px;
+  }
+
+  .modal-qr img {
+    border-radius: 4px;
+  }
+
+  .modal-qr-label {
+    font-size: 11px;
+    color: #b0a07a;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .modal-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .modal-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: #5a5340;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .modal-link i {
+    font-size: 22px;
+    color: #2d5a3d;
+  }
+
+  .modal-link:hover {
+    color: #2d5a3d;
+  }
+
+  @keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 </style>

@@ -3,6 +3,15 @@
 
   const projects = [
     {
+      name: 'Sweet Surrender Rewards App',
+      tag: 'In Development',
+      tagType: 'amber',
+      label: 'Dali Labs',
+      desc: 'A rewards app designed for local business "Sweet Surrender" so that its customers can review points earned.',
+      meta: 'Flutter · Supabase · AI · 2026–Present',
+      featured: true
+    },
+    {
       name: 'PyraMED Implementation Tool',
       tag: 'In Development',
       tagType: 'amber',
@@ -12,7 +21,7 @@
       featured: true
     },
     {
-      name: 'Canopy x FarmersOS',
+      name: 'Canopy (pending name) x FarmersOS',
       tag: 'In Development',
       tagType: 'amber',
       label: 'Dali Labs',

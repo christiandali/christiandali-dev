@@ -3,11 +3,11 @@
 
   const projects = [
     {
-      name: 'Sweet Surrender Rewards App',
+      name: 'Local Bakery Rewards App',
       tag: 'In Development',
       tagType: 'amber',
       label: 'Dali Labs',
-      desc: 'A rewards app designed for local business "Sweet Surrender" so that its customers can review points earned.',
+      desc: "A loyalty rewards app for a neighborhood bakery, so regulars can check the points they've earned and see what they're close to redeeming.",
       meta: 'Flutter · Supabase · AI · 2026–Present',
       featured: true
     },

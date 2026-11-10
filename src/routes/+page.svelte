@@ -143,13 +143,18 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <div class="hero-dot"></div>
-        <span class="hero-label">Full-stack developer · Community Builder</span>
+        <span class="hero-label">Bakersfield, CA · Central Valley</span>
       </div>
       <h1>Hey, I'm Chris :)</h1>
+      <p class="hero-sub">Freelance developer, problem solver, and computer specialist.</p>
       <div class="hero-rule"></div>
-      <p class="hero-body">I'm a developer born and raised right here in California's Central Valley — and I believe it's the people who steer innovation and discovery into what this place is becoming.</p>
-      <p class="hero-body">I'm curious about the gaps and problems we each can see from our own corner of the city — because we all hold a piece of this place in our hands.</p>
-      <p class="hero-body">Whether you know exactly what you need or have no idea where to start — together, we might build something our friends and neighbors never could have imagined alone.</p>
+      <p class="hero-services-title">What I can help with</p>
+      <ul class="hero-services">
+        <li><span class="svc-icon" aria-hidden="true">🌐</span><span><strong>Websites for local businesses</strong> — menus, hours, online ordering, booking</span></li>
+        <li><span class="svc-icon" aria-hidden="true">📱</span><span><strong>Custom apps &amp; tools</strong> — rewards programs, dashboards, internal tools</span></li>
+        <li><span class="svc-icon" aria-hidden="true">💻</span><span><strong>Computer help</strong> — setup, troubleshooting, and getting your tech organized</span></li>
+      </ul>
+      <p class="hero-body">Born and raised in the Central Valley. Tell me what's slowing your business down, and I'll show you a working idea before you spend a dime.</p>
       <div class="hero-actions">
         <a href="#work" class="btn-primary">See my work</a>
         <button class="btn-secondary" onclick={openContact}>Get in touch</button>
@@ -447,6 +452,54 @@
     line-height: 1.1;
     color: #1c1a15;
     margin: 0 0 1.25rem;
+  }
+
+  .hero-sub {
+    font-size: 20px;
+    line-height: 1.4;
+    color: #2d5a3d;
+    font-weight: 500;
+    margin: -0.5rem 0 1.25rem;
+    max-width: 560px;
+  }
+
+  .hero-services-title {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8a7f63;
+    font-weight: 500;
+    margin: 0 0 0.75rem;
+  }
+
+  .hero-services {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: grid;
+    gap: 0.6rem;
+    max-width: 560px;
+  }
+
+  .hero-services li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: baseline;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #5a5340;
+    font-weight: 300;
+  }
+
+  .hero-services strong {
+    color: #1c1a15;
+    font-weight: 600;
+  }
+
+  .svc-icon {
+    flex-shrink: 0;
+    width: 1.3em;
+    text-align: center;
   }
 
   .hero-rule {
@@ -906,6 +959,10 @@
   @media (max-width: 600px) {
     h1 {
       font-size: 36px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
     }
 
     .project-grid {
